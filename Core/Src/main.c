@@ -172,7 +172,7 @@ int main(void)
 
 		// IOExpender read and write all time
 //		IOExpdrExampleWriteFlag =1;
-		IOExpenderWritePinB(eepromDataReadBack);
+		IOExpenderWritePinB(eepromDataReadBack[0]);
 
 		SW_B1[0] = SW_B1[1];
 

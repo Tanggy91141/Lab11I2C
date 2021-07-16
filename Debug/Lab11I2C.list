@@ -474,9 +474,9 @@ int main(void)
 
 		// IOExpender read and write all time
 //		IOExpdrExampleWriteFlag =1;
-		IOExpenderWritePinB(eepromDataReadBack);
+		IOExpenderWritePinB(eepromDataReadBack[0]);
  8000556:	4b0c      	ldr	r3, [pc, #48]	; (8000588 <main+0xb0>)
- 8000558:	b2db      	uxtb	r3, r3
+ 8000558:	781b      	ldrb	r3, [r3, #0]
  800055a:	4618      	mov	r0, r3
  800055c:	f000 f9d8 	bl	8000910 <IOExpenderWritePinB>
 
