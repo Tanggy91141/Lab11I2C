@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020024  2**0
                   CONTENTS, READONLY
- 12 .debug_info   000091f6  00000000  00000000  00020054  2**0
+ 12 .debug_info   000091f5  00000000  00000000  00020054  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_abbrev 00001634  00000000  00000000  0002924a  2**0
+ 13 .debug_abbrev 0000161e  00000000  00000000  00029249  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_aranges 00000958  00000000  00000000  0002a880  2**3
+ 14 .debug_aranges 00000958  00000000  00000000  0002a868  2**3
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_ranges 000008c8  00000000  00000000  0002b1d8  2**3
+ 15 .debug_ranges 000008c8  00000000  00000000  0002b1c0  2**3
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_macro  00014ea0  00000000  00000000  0002baa0  2**0
+ 16 .debug_macro  00014ea0  00000000  00000000  0002ba88  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   00007725  00000000  00000000  00040940  2**0
+ 17 .debug_line   00007723  00000000  00000000  00040928  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    000839c4  00000000  00000000  00048065  2**0
+ 18 .debug_str    000839c4  00000000  00000000  0004804b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  000cba29  2**0
+ 19 .comment      0000007b  00000000  00000000  000cba0f  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000026b4  00000000  00000000  000cbaa4  2**2
+ 20 .debug_frame  000026b4  00000000  00000000  000cba8c  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -416,21 +416,14 @@ int main(void)
  8000518:	2b01      	cmp	r3, #1
  800051a:	d105      	bne.n	8000528 <main+0x50>
 		{
-
 			IOExpdrExampleReadFlag = 1;
  800051c:	4b15      	ldr	r3, [pc, #84]	; (8000574 <main+0x9c>)
  800051e:	2201      	movs	r2, #1
  8000520:	701a      	strb	r2, [r3, #0]
-//			IOExpenderReadPinA(&IOExpdrDataReadBack);
-//			IOExpdrExampleWriteFlag = 1;
-//			IOExpenderWritePinB(IOExpdrDataReadBack);
-			// Write EEPROM when button press
 			eepromExampleWriteFlag = 1;
  8000522:	4b15      	ldr	r3, [pc, #84]	; (8000578 <main+0xa0>)
  8000524:	2201      	movs	r2, #1
  8000526:	701a      	strb	r2, [r3, #0]
-//			EEPROMReadExample(eepromDataReadBack, 1);
-
 		}
 
 
@@ -452,28 +445,17 @@ int main(void)
  800053e:	4b10      	ldr	r3, [pc, #64]	; (8000580 <main+0xa8>)
  8000540:	2201      	movs	r2, #1
  8000542:	701a      	strb	r2, [r3, #0]
-//			// IOExpender read and write all time
-//			IOExpdrExampleWriteFlag =1;
-//			IOExpenderWritePinB(eepromDataReadBack);
-//		}
+		}
 
 		IOExpenderReadPinA(&IOExpdrDataReadBack);
  8000544:	480f      	ldr	r0, [pc, #60]	; (8000584 <main+0xac>)
  8000546:	f000 f9bd 	bl	80008c4 <IOExpenderReadPinA>
 		EEPROMWriteExample();
  800054a:	f000 f951 	bl	80007f0 <EEPROMWriteExample>
-
-		// Read EEPROM all time
-//		eepromExampleReadFlag = 1;
 		EEPROMReadExample(eepromDataReadBack, 1);
  800054e:	2101      	movs	r1, #1
  8000550:	480d      	ldr	r0, [pc, #52]	; (8000588 <main+0xb0>)
  8000552:	f000 f979 	bl	8000848 <EEPROMReadExample>
-
-		// Set EEPROM data for IOExIOExpenderRead
-
-		// IOExpender read and write all time
-//		IOExpdrExampleWriteFlag =1;
 		IOExpenderWritePinB(eepromDataReadBack[0]);
  8000556:	4b0c      	ldr	r3, [pc, #48]	; (8000588 <main+0xb0>)
  8000558:	781b      	ldrb	r3, [r3, #0]
@@ -919,13 +901,13 @@ void EEPROMWriteExample() {
  800080e:	4b0d      	ldr	r3, [pc, #52]	; (8000844 <EEPROMWriteExample+0x54>)
  8000810:	701a      	strb	r2, [r3, #0]
 
-		HAL_I2C_Mem_Write_IT(&hi2c1, EEPROM_ADDR, 0x2c, I2C_MEMADD_SIZE_16BIT,
+		HAL_I2C_Mem_Write_IT(&hi2c1, EEPROM_ADDR, 0x28, I2C_MEMADD_SIZE_16BIT,
  8000812:	2301      	movs	r3, #1
  8000814:	9301      	str	r3, [sp, #4]
  8000816:	4b0b      	ldr	r3, [pc, #44]	; (8000844 <EEPROMWriteExample+0x54>)
  8000818:	9300      	str	r3, [sp, #0]
  800081a:	2310      	movs	r3, #16
- 800081c:	222c      	movs	r2, #44	; 0x2c
+ 800081c:	2228      	movs	r2, #40	; 0x28
  800081e:	21a0      	movs	r1, #160	; 0xa0
  8000820:	4806      	ldr	r0, [pc, #24]	; (800083c <EEPROMWriteExample+0x4c>)
  8000822:	f000 ffa7 	bl	8001774 <HAL_I2C_Mem_Write_IT>
@@ -967,14 +949,13 @@ void EEPROMReadExample(uint8_t *Rdata, uint16_t len) {
  8000864:	2b20      	cmp	r3, #32
  8000866:	d10c      	bne.n	8000882 <EEPROMReadExample+0x3a>
 
-
-		HAL_I2C_Mem_Read_IT(&hi2c1, EEPROM_ADDR, 0x2c, I2C_MEMADD_SIZE_16BIT,
+		HAL_I2C_Mem_Read_IT(&hi2c1, EEPROM_ADDR, 0x28, I2C_MEMADD_SIZE_16BIT,
  8000868:	887b      	ldrh	r3, [r7, #2]
  800086a:	9301      	str	r3, [sp, #4]
  800086c:	687b      	ldr	r3, [r7, #4]
  800086e:	9300      	str	r3, [sp, #0]
  8000870:	2310      	movs	r3, #16
- 8000872:	222c      	movs	r2, #44	; 0x2c
+ 8000872:	2228      	movs	r2, #40	; 0x28
  8000874:	21a0      	movs	r1, #160	; 0xa0
  8000876:	4807      	ldr	r0, [pc, #28]	; (8000894 <EEPROMReadExample+0x4c>)
  8000878:	f001 f82e 	bl	80018d8 <HAL_I2C_Mem_Read_IT>

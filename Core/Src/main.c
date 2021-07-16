@@ -126,17 +126,8 @@ int main(void)
 		SW_B1[1] = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);	//Read state of B1 (PC13)
 		if ((SW_B1[1] == GPIO_PIN_RESET) && (SW_B1[0] == GPIO_PIN_SET))
 		{
-
 			IOExpdrExampleReadFlag = 1;
-//			IOExpenderReadPinA(&IOExpdrDataReadBack);
-//			IOExpdrExampleWriteFlag = 1;
-//			IOExpenderWritePinB(IOExpdrDataReadBack);
-			// Write EEPROM when button press
 			eepromExampleWriteFlag = 1;
-//			EEPROMWriteExample();
-//			eepromExampleReadFlag = 1;
-//			EEPROMReadExample(eepromDataReadBack, 1);
-
 		}
 
 
@@ -144,34 +135,11 @@ int main(void)
 		{
 			IOExpdrExampleWriteFlag = 1;
 			eepromExampleReadFlag = 1;
-
 		}
-
-
-//		if (HAL_GetTick() - timeStamp >= 100)
-//		{
-//			// Read EEPROM all time
-//			eepromExampleReadFlag = 1;
-//			EEPROMReadExample(eepromDataReadBack, 1);
-//
-//			// Set EEPROM data for IOExIOExpenderRead
-//
-//			// IOExpender read and write all time
-//			IOExpdrExampleWriteFlag =1;
-//			IOExpenderWritePinB(eepromDataReadBack);
-//		}
 
 		IOExpenderReadPinA(&IOExpdrDataReadBack);
 		EEPROMWriteExample();
-
-		// Read EEPROM all time
-//		eepromExampleReadFlag = 1;
 		EEPROMReadExample(eepromDataReadBack, 1);
-
-		// Set EEPROM data for IOExIOExpenderRead
-
-		// IOExpender read and write all time
-//		IOExpdrExampleWriteFlag =1;
 		IOExpenderWritePinB(eepromDataReadBack[0]);
 
 		SW_B1[0] = SW_B1[1];
@@ -333,7 +301,7 @@ void EEPROMWriteExample() {
 		static uint8_t data[1] = {0};
 		data[0] = IOExpdrDataReadBack;
 
-		HAL_I2C_Mem_Write_IT(&hi2c1, EEPROM_ADDR, 0x2c, I2C_MEMADD_SIZE_16BIT,
+		HAL_I2C_Mem_Write_IT(&hi2c1, EEPROM_ADDR, 0x28, I2C_MEMADD_SIZE_16BIT,
 				data,1);
 		eepromExampleWriteFlag = 0;
 	}
@@ -343,8 +311,7 @@ void EEPROMWriteExample() {
 void EEPROMReadExample(uint8_t *Rdata, uint16_t len) {
 	if (eepromExampleReadFlag && hi2c1.State == HAL_I2C_STATE_READY) {
 
-
-		HAL_I2C_Mem_Read_IT(&hi2c1, EEPROM_ADDR, 0x2c, I2C_MEMADD_SIZE_16BIT,
+		HAL_I2C_Mem_Read_IT(&hi2c1, EEPROM_ADDR, 0x28, I2C_MEMADD_SIZE_16BIT,
 				Rdata, len);
 		eepromExampleReadFlag = 0;
 	}
